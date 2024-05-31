@@ -1,0 +1,95 @@
+<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" data-bs-theme="dark">
+
+    <a class="navbar-brand" href="#">Starkmobile</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+        <li class="nav-item">
+          <a
+            [className]="showAdmin? 'nav-link' : 'nav-link active'"
+            aria-current="page"
+            href="#"
+            (click)="onShowHome()">
+            Home
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            [className]="showAdmin? 'nav-link active dropdown-toggle' : 'nav-link dropdown-toggle'"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="onShowAdmin()" href="#">Administrar productos</a></li>
+          </ul>
+        </li>
+        @if (!showAdmin) {
+          <li class="nav-item col-6 col-lg-auto">
+            @if (cartItems.length > 0) {
+              <a class="nav-link" (click)="openCloseCart()">
+                <img src="./assets/carritoLleno.png">
+                ({{ cartItems.length }})</a>
+            } @else {
+              <a class="nav-link" (click)="openCloseCart()">
+                <img src="./assets/carritoVacio.png">
+                ({{ cartItems.length }})</a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  </nav>
+</header>
+<div class="container my-4">
+  @if (showAdmin) {
+    <app-admin
+      [products]="products"
+      (addProductEventEmitter)="onAddProduct($event)"
+      (editProductEventEmitter)="onEditProduct($event)"
+      (deleteProductEventEmitter)="onRemoveProduct($event)"
+    />
+  } @else {
+    <h3>Buscar</h3>
+    <div class="row my-4">
+      <div class="col-4">
+        <input class="form-control" type="text" [(ngModel)]="this.filter" (ngModelChange)="onChange($event)" placeholder="Escribe algo...">
+      </div>
+    </div>
+    <div class="row">
+      <div [className]="showCart ? 'col-8' : 'col'">
+        @if (products.length > 0){
+          <app-catalog
+            [products]="products"
+            (productEventEmitter)="onAddCart($event)"/>
+        } @else {
+          <div class="alert alert-warning">No hay productos por filtro</div>
+        }
+      </div>
+      @if (showCart) {
+        <div class="col-4">
+          <button class="btn btn-secondary float-end" (click)="openCloseCart()">X</button>
+          @if (cartItems.length > 0) {
+            <app-cart
+              [cartItems]="cartItems"
+              (idProductEventEmitter)="onDeleteCart($event)"
+              [total]="total"
+            />
+          } @else {
+            <div class="alert alert-warning"> No hay elementos en el carrito</div>
+          }
+        </div>
+      }
+    </div>
+  }
+
+</div>
+
+
+

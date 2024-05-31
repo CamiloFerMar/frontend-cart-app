@@ -1,0 +1,16 @@
+<h3>Lista de productos disponibles</h3>
+<button
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  (click)="resetProduct()">Agregar</button>
+<app-products-modal
+  [product]="productModify"
+  [modify]="modifyProduct"
+  (addProductEventEmitter)="onAddProduct($event)"
+  (editEventEmitter)="onEditEventProduct($event)"
+/>
+<app-products-list
+  (editEventEmitter)="onEditProduct($event)"
+  [products]="products"
+  (removeEventEmitter)="onRemoveProduct($event)"/>

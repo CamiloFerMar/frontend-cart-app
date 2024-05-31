@@ -1,0 +1,85 @@
+<form class="w-50" (ngSubmit)="onSubmit(itemForm)" #itemForm="ngForm">
+  <input
+    name="name"
+    placeholder="Nombre"
+    class="form-control m-3"
+    [(ngModel)]="product.name"
+    required minlength="5"
+    #name="ngModel"
+  >
+  @if (name.invalid && (name.dirty || name.touched)) {
+    @if (name.errors!['required']){
+      <div class="text-danger mx-3">
+        Nombre del producto requerido
+      </div>
+    }
+    @if (name.errors!['minlength']){
+      <div class="text-danger mx-3">
+        Nombre del producto debe tener al menos 5 caracteres
+      </div>
+    }
+  }
+  <input
+    type="text"
+    name="description"
+    placeholder="Descripción"
+    class="form-control m-3"
+    [(ngModel)]="product.description"
+    required minlength="5"
+    #description="ngModel"
+  >
+
+  @if (description.invalid && (description.dirty || description.touched)) {
+    @if (description.errors!['required']){
+      <div class="text-danger mx-3">
+        Precio del producto requerido
+      </div>
+    }
+    @if (description.errors!['minlength']){
+      <div class="text-danger mx-3">
+        Precio del producto debe ser minimo de 5
+      </div>
+    }
+  }
+
+  <input
+    type="number"
+    name="price"
+    placeholder="Precio"
+    class="form-control m-3"
+    [(ngModel)]="product.price"
+    required min="1"
+    #price="ngModel"
+  >
+  @if (price.invalid && (price.dirty || price.touched)) {
+    @if (price.errors!['required']){
+      <div class="text-danger mx-3">
+        Cantidad del producto requerida
+      </div>
+    }
+    @if (price.errors!['min']){
+      <div class="text-danger mx-3">
+        Cantidad del producto debe ser minimo de 1
+      </div>
+    }
+  }
+  @if (modify){
+    <button
+      class="btn btn-primary m-3"
+      [disabled]="itemForm.invalid"
+      data-bs-dismiss="modal"
+      (click)="onModify()"
+    >
+      Modificar producto
+    </button>
+  } @else {
+    <button
+      class="btn btn-primary m-3"
+      [disabled]="itemForm.invalid"
+      data-bs-dismiss="modal"
+      (click)="onCreate()"
+    >
+      Nuevo producto
+    </button>
+  }
+</form>

@@ -1,0 +1,18 @@
+  <td>{{product.id}}</td>
+  <td>{{product.name}}</td>
+  <td>{{product.description}}</td>
+  <td>{{product.price | currency:'USD':'symbol':'1.2-2'}}</td>
+  <td>
+    <button
+      class="btn btn-secondary btn-sm mx-2"
+      (click)="onEdit(product)"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal">
+      Editar
+    </button>
+    <button
+      class="btn btn-danger btn-sm mx-2"
+      (click)="onRemove(product.id)">
+      Eliminar
+    </button>
+  </td>

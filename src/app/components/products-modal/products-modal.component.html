@@ -1,0 +1,26 @@
+
+<!-- Modal -->
+<div class="modal fade" style="display: none;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          @if (modify) {
+            Modificar producto
+          } @else {
+            Agregar nuevo producto
+          }
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-products-form
+          [product]="product"
+          [modify]="modify"
+          (addProductEventEmitter)="onAddProduct($event)"
+          (editEventEmitter)="onEditProduct($event)"
+        />
+      </div>
+    </div>
+  </div>
+</div>

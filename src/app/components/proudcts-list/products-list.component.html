@@ -1,0 +1,24 @@
+@if (products.length > 0){
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Precio</th>
+      <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (item of products; track $index) {
+        <tr app-row-items
+            [product]="item"
+            (editEventEmitter)="onEdit($event)"
+            (removeEventEmitter)="onRemove($event)">
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+
+}
